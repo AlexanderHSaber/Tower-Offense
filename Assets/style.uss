@@ -1,0 +1,3 @@
+#button-next:hover {
+    background-color: rgba(0, 25, 128, 255);
+}

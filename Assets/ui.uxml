@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="style.uss" />
+    <ui:VisualElement name="root" style="flex-grow: 1;">
+        <ui:Button text="next wave" display-tooltip-when-elided="true" name="button-next" style="position: absolute; top: 474px; left: 510px; background-color: rgba(132, 4, 4, 255);" />
+    </ui:VisualElement>
+</ui:UXML>

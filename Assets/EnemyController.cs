@@ -10,11 +10,17 @@ public class EnemyController : MonoBehaviour
     public float stoppingDistance;
     public float health = 3;
 
+    public int damage = 1;
+
+    GameController gc;
+
     // Start is called before the first frame update
     void Start()
     {
-        speed = 1.0f;
-        stoppingDistance = 1.0f;
+
+        gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+
+        
 
         if (!tower) tower = GameObject.FindGameObjectWithTag("Player");
     }
@@ -22,6 +28,10 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (gc.debug)
+        {
+            speed = gc.gameSpeed;
+        }
         this.MoveTowardsTower();
     }
 
@@ -47,6 +57,12 @@ public class EnemyController : MonoBehaviour
             {
                 Destroy(gameObject);
             }
+        }
+
+        TowerController tower = collision.gameObject.GetComponent<TowerController>();
+        if (tower)
+        {
+            Destroy(gameObject);
         }
     }
 }

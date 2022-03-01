@@ -8,17 +8,22 @@ public class ArrowController : MonoBehaviour
     public float speed;
     public Vector2 target;
     public float stoppingDistance;
-    public int damage = 1;
+    public int damage = 2;
+    GameController gc;
 
     void Start()
     {
-        speed = 1.0f;
-        stoppingDistance = 0.1f;
+        gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (gc.debug)
+        {
+            speed = gc.gameSpeed;
+        }
+
         if (target != null) {
             MoveTowardsTarget();
         }

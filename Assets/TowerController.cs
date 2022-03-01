@@ -6,20 +6,30 @@ public class TowerController : MonoBehaviour
 {
 
     public GameObject arrowPrefab;
+    public GameController gc;
 
     public float radius;
-    public float bulletInterval = 1f;
+    public float bulletInterval;
     public bool shooting = true;
+
+    int health = 5;
+
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine("ShootAmmo");
+
+        gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (gc.debug)
+        {
+            bulletInterval = 1/gc.gameSpeed;
+        }
 
     }
 
@@ -38,12 +48,30 @@ public class TowerController : MonoBehaviour
             Vector2.zero,
             0.0f,
             LayerMask.GetMask("Enemy"));
-        Debug.Log(enemies.Length);
+
         if (enemies.Length > 0)
         {
-            return enemies[0].transform.gameObject;
+            return getClosestEnemy(enemies);
         }
         return null; 
+    }
+
+    GameObject getClosestEnemy(RaycastHit2D[] enemies) {
+        GameObject closestSoFar = null;
+
+        foreach (RaycastHit2D hit in enemies)
+        {
+            if (closestSoFar == null) 
+            {
+                closestSoFar = hit.transform.gameObject;
+            }
+            else if (Vector2.SqrMagnitude(transform.position - hit.transform.position) < Vector2.SqrMagnitude(transform.position - closestSoFar.transform.position)) 
+            {
+                closestSoFar = hit.transform.gameObject;
+            }
+        }
+
+        return closestSoFar;
     }
 
     IEnumerator ShootAmmo()
@@ -64,5 +92,19 @@ public class TowerController : MonoBehaviour
         }
         
 
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("HELO");
+        if (collision.gameObject.GetComponent<EnemyController>())
+        {
+            Debug.Log("HELO2");
+            health -= collision.gameObject.GetComponent<EnemyController>().damage;
+
+            if (health <= 0) {
+                Debug.Log("DEAD");
+            }
+        }
     }
 }
