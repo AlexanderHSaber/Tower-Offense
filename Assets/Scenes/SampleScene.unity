@@ -439,8 +439,8 @@ MonoBehaviour:
   spawnTime: 2
   radius: 15
   enemyPrefab: {fileID: 4144106363740505389, guid: fab285254e6a5704c85001c8565f3bfc, type: 3}
-  gameSpeed: 0
-  debug: 0
+  gameSpeed: 3
+  debug: 1
   currentWave: 0
   remainingSpawnCount: 0
   uidoc: {fileID: 0}
