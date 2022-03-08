@@ -5,7 +5,7 @@ using UnityEngine;
 public class TowerController : MonoBehaviour
 {
 
-    public GameObject arrowPrefab;
+    public GameObject projectilePrefab;
     public GameController gc;
 
     public float radius;
@@ -34,8 +34,8 @@ public class TowerController : MonoBehaviour
     }
 
     void spawnAmmo(Vector2 target) {
-        GameObject ammo = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
-        ammo.GetComponent<ArrowController>().SetTarget(target);
+        GameObject ammo = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+        ammo.GetComponent<ProjectileController>().SetTarget(target);
     }
 
     GameObject GetTarget()

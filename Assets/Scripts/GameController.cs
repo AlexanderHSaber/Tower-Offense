@@ -38,7 +38,7 @@ public class GameController : MonoBehaviour
         nextWaveButton = root.Q<Button>("button-next");
 
         nextWaveButton.clicked += () => readyForNextWave = true;
-        ShowUI(false);
+        HideUI();
     }
 
     // Update is called once per frame
@@ -68,14 +68,11 @@ public class GameController : MonoBehaviour
 
         yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("Enemy").Length == 0); //check for all enemies destroyed
 
-        ShowUI(true);
-
+        PauseGame();
+        
         yield return new WaitUntil(() => readyForNextWave); //next wave button clicked
-        
-        ShowUI(false);
 
-
-        
+        UnpauseGame();
 
         currentWave += 1;
         remainingSpawnCount = getWaveQuantity(currentWave);
@@ -92,8 +89,66 @@ public class GameController : MonoBehaviour
         return n + 1;
     }
 
-    void ShowUI(bool visible)
+    void ShowUI()
     {
-        root.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
+        var CardTexts = new Dictionary<int, string>() {
+            { 0, "Example 1" },
+            { 1, "Example 2" },
+            { 2, "Example 3" }
+        };
+
+        var possibleChoices = new int[] { 0, 1, 2 };
+        Shuffle(possibleChoices);
+
+
+        var cards = new List<Button>();
+        root.Query<Button>(className: "Card").ToList(cards);
+        for(int i = 0; i < cards.Count; i++)
+        {
+            string cardDescription;
+            CardTexts.TryGetValue(possibleChoices[i], out cardDescription);
+            cards[i].text = cardDescription;
+
+        }    
+
+        root.style.display = DisplayStyle.Flex;
+    }
+
+    void Shuffle(int[] list)
+    {
+        for (int i = 0; i < list.Length - 1; i++)
+        {
+            int rnd = Random.Range(i, list.Length);
+            int temp = list[rnd];
+            list[rnd] = list[i];
+            list[i] = temp;
+        }
+    }
+    void HideUI() 
+    {
+        root.style.display = DisplayStyle.None;
+    }
+
+    void PauseGame() 
+    {
+
+        DestroyAllProjectiles();
+        ShowUI();
+
+    }
+
+    void UnpauseGame() 
+    {
+        HideUI();
+    }
+
+    void DestroyAllProjectiles() 
+    {
+        // Stop the movement of gameobjects in the scene
+        ProjectileController[] projectileControllers = GameObject.FindObjectsOfType<ProjectileController>();
+        foreach (ProjectileController a in projectileControllers)
+        {
+            a.DestroyProjectile();
+        }
     }
 }

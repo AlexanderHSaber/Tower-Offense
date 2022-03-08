@@ -48,11 +48,11 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        ArrowController arrow = collision.gameObject.GetComponent<ArrowController>();
+        ProjectileController projectile = collision.gameObject.GetComponent<ProjectileController>();
         
-        if (arrow)
+        if (projectile)
         {
-            health -= arrow.GetDamage();
+            health -= projectile.GetDamage();
             if(health <= 0)
             {
                 Destroy(gameObject);

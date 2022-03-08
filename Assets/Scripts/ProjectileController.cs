@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArrowController : MonoBehaviour
+public class ProjectileController : MonoBehaviour
 {
 
     public float speed;
@@ -56,6 +56,11 @@ public class ArrowController : MonoBehaviour
     public int GetDamage()
     {
         return damage;
+    }
+
+    public void DestroyProjectile()
+    {
+        Destroy(gameObject);
     }
 
 }

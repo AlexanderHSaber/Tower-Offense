@@ -1,8 +1,13 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="style.uss" />
     <ui:VisualElement name="root" style="flex-grow: 1; align-items: stretch; justify-content: center;">
-        <ui:VisualElement name="overlay" style="background-color: rgba(43, 51, 34, 0.84); flex-grow: 1; justify-content: center; align-items: center;">
-            <ui:Button text="next wave" display-tooltip-when-elided="true" name="button-next" />
+        <ui:VisualElement name="overlay" style="background-color: rgba(255, 255, 255, 0.4); flex-grow: 1; justify-content: center; align-items: center;">
+            <ui:VisualElement style="flex-direction: row; flex-grow: 0; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; width: 70%; height: 50%;">
+                <ui:Button text="asdfasdfasdfasdfasdfasdfasdfasdfadfas" display-tooltip-when-elided="true" name="Card1" class="Card" />
+                <ui:Button text="Button" display-tooltip-when-elided="true" name="Card2" class="Card" />
+                <ui:Button text="Button" display-tooltip-when-elided="true" name="Card0" class="Card" />
+            </ui:VisualElement>
+            <ui:Button text="next wave" display-tooltip-when-elided="true" name="button-next" class="NextButton" style="top: 50px;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
