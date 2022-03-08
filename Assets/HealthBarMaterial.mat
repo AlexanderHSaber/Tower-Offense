@@ -36,11 +36,17 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - BOOLEAN_78DE57EB34814BFD888CCE21F273C9F0: 0
+    - BOOLEAN_83D50954AB9B4656A94ED76207E846D0: 0
+    - BOOLEAN_DFD9F20260C04771AC445BFF797A71E6: 0
     - Vector1_5a48ad5fdc904e34a3b8ca633828e8f7: 1
+    - _ColorShift: 0
+    - _Opacity: 1
     - _ReverseDirection: 0
-    - _TransparentDamage: 1
+    - _TransparentDamage: 0
     - _Value: 1
     m_Colors:
-    - _ColorDamage: {r: 0.5754717, g: 0, b: 0.042878453, a: 1}
-    - _ColorHealthy: {r: 0.08025527, g: 1, b: 0, a: 0}
+    - _ColorDamage: {r: 1, g: 0.5342697, b: 0.25, a: 1}
+    - _ColorHealth: {r: 0, g: 1, b: 0.7911868, a: 0}
+    - _ColorHealthy: {r: 0, g: 1, b: 0.26026773, a: 0}
   m_BuildTextureStacks: []
