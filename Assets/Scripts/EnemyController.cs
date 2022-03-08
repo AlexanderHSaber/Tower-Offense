@@ -12,6 +12,10 @@ public class EnemyController : MonoBehaviour
 
     public int damage = 1;
 
+
+    private float maxHealth;
+    private HealthBarController healthBar;
+
     GameController gc;
 
     // Start is called before the first frame update
@@ -23,6 +27,9 @@ public class EnemyController : MonoBehaviour
         
 
         if (!tower) tower = GameObject.FindGameObjectWithTag("Player");
+
+        maxHealth = health;
+        healthBar = GetComponentInChildren<HealthBarController>();
     }
 
     // Update is called once per frame
@@ -53,6 +60,14 @@ public class EnemyController : MonoBehaviour
         if (projectile)
         {
             health -= projectile.GetDamage();
+
+
+            //update health bar on damage
+            if (healthBar)
+            {
+                healthBar.SetValue(health / maxHealth);
+            }            
+
             if(health <= 0)
             {
                 Destroy(gameObject);

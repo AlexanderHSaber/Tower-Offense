@@ -210,7 +210,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -389,8 +389,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fab8c215519341ba91eb58d6d9e88e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 1
-  timeScale: 0.5
 --- !u!212 &1283221749
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -569,7 +567,7 @@ MonoBehaviour:
   spawnTime: 2
   radius: 15
   enemyPrefab: {fileID: 4144106363740505389, guid: fab285254e6a5704c85001c8565f3bfc, type: 3}
-  gameSpeed: 1
+  gameSpeed: 2
   debug: 1
   currentWave: 0
   remainingSpawnCount: 0
@@ -817,8 +815,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fab8c215519341ba91eb58d6d9e88e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 1
-  timeScale: 1
 --- !u!212 &1699207838
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -914,8 +910,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fab8c215519341ba91eb58d6d9e88e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 1
-  timeScale: 1
 --- !u!212 &2140579718
 SpriteRenderer:
   m_ObjectHideFlags: 0

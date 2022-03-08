@@ -46,7 +46,7 @@ Material:
     - _TransparentDamage: 0
     - _Value: 1
     m_Colors:
-    - _ColorDamage: {r: 1, g: 0.5342697, b: 0.25, a: 1}
-    - _ColorHealth: {r: 0, g: 1, b: 0.7911868, a: 0}
+    - _ColorDamage: {r: 1, g: 0.23494448, b: 0, a: 1}
+    - _ColorHealth: {r: 0.3755486, g: 1, b: 0, a: 0}
     - _ColorHealthy: {r: 0, g: 1, b: 0.26026773, a: 0}
   m_BuildTextureStacks: []
