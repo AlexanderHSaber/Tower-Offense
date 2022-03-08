@@ -16,9 +16,9 @@ public class GameController : MonoBehaviour
     public int currentWave;
     public int remainingSpawnCount;
 
-    public UIDocument uidoc;
-    public VisualElement root;
-    public Button nextWaveButton;
+    private UIDocument uidoc;
+    private VisualElement root;
+    private Button nextWaveButton;
 
     public bool readyForNextWave = true;
 
@@ -38,7 +38,7 @@ public class GameController : MonoBehaviour
         nextWaveButton = root.Q<Button>("button-next");
 
         nextWaveButton.clicked += () => readyForNextWave = true;
-        nextWaveButton.style.display = DisplayStyle.None;
+        ShowUI(false);
     }
 
     // Update is called once per frame
@@ -64,17 +64,18 @@ public class GameController : MonoBehaviour
             remainingSpawnCount -= 1;
         }
 
-        yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("Enemy").Length == 0);
-
-        nextWaveButton.style.display = DisplayStyle.Flex;
-
-        yield return new WaitUntil(() => readyForNextWave); //button clicked
-
         readyForNextWave = false;
-        nextWaveButton.style.display = DisplayStyle.None;
+
+        yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("Enemy").Length == 0); //check for all enemies destroyed
+
+        ShowUI(true);
+
+        yield return new WaitUntil(() => readyForNextWave); //next wave button clicked
+        
+        ShowUI(false);
 
 
-        //
+        
 
         currentWave += 1;
         remainingSpawnCount = getWaveQuantity(currentWave);
@@ -89,5 +90,10 @@ public class GameController : MonoBehaviour
 
     int getWaveQuantity(int n) {
         return n + 1;
+    }
+
+    void ShowUI(bool visible)
+    {
+        root.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
     }
 }
