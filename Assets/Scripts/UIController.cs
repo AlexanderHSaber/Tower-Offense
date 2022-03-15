@@ -123,17 +123,21 @@ public class UIController : MonoBehaviour
 
         for (int i = 0; i < weaponIcons.Count; i++)
         {
+            Debug.Log($"attached callback to weaponIcon{i}");
             VisualElement weapon = weaponIcons[i];
+
+            int curr = i; //read i outside of callback to get actual value
             weapon.RegisterCallback<ClickEvent>(evt =>
             {
-                int curr = i;
+                Debug.Log(i); //not sure why this is always 4 inside the callback?
+
                 Debug.Log("Clicked weapon icon" + curr);
                 VisualElement weaponUpgradeScreen = weaponUpgradeScreens[curr];
                 showWeaponUpgradeScreen(weaponUpgradeScreen, weaponUpgradeScreens);
             });
         }
 
-        showWeaponUpgradeScreen(weaponIcons[0], weaponUpgradeScreens);
+        showWeaponUpgradeScreen(weaponUpgradeScreens[0], weaponUpgradeScreens);
     }
 
     private void showWeaponUpgradeScreen(VisualElement weaponUpgradeScreen, List<VisualElement> weaponUpgradeScreens) 
