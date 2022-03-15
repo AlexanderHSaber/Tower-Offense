@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: HealthBarMaterial
-  m_Shader: {fileID: -6465566751694194690, guid: 79eeae75d0c0e4d9fbb63b150fc88792, type: 3}
+  m_Name: TowerMaterial
+  m_Shader: {fileID: -6465566751694194690, guid: 923a9840b83ea4beaa1ce0ac58f72826, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -19,6 +19,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_2ed8ab90bd6b416ea78baf713a73fa7d:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -36,17 +40,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - BOOLEAN_78DE57EB34814BFD888CCE21F273C9F0: 0
-    - BOOLEAN_83D50954AB9B4656A94ED76207E846D0: 0
-    - BOOLEAN_DFD9F20260C04771AC445BFF797A71E6: 0
-    - Vector1_5a48ad5fdc904e34a3b8ca633828e8f7: 1
-    - _ColorShift: 0
-    - _Opacity: 1
-    - _ReverseDirection: 0
-    - _TransparentDamage: 0
-    - _Value: 1
+    - BOOLEAN_2AC7CA5CD7B54400936006B47E17B7F9: 0
+    - _EffectStrength: 0.7944641
     m_Colors:
-    - _ColorDamage: {r: 1, g: 0.23494448, b: 0, a: 1}
-    - _ColorHealth: {r: 0.3755486, g: 1, b: 0, a: 0}
-    - _ColorHealthy: {r: 0, g: 1, b: 0.26026773, a: 0}
+    - Color_8a5367d26f6448d2a19734f10444fd59: {r: 1, g: 1, b: 1, a: 0}
+    - Color_c9ff37605d73406180d4650fd715359f: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []

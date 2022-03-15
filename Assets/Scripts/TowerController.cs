@@ -14,13 +14,21 @@ public class TowerController : MonoBehaviour
 
     int health = 5;
 
+    private GameObject targetedEnemy;
+
+    public GameObject gun;
+    private Material material;    
+    private Coroutine flashRoutine;
+
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine("ShootAmmo");
 
         gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
-
+        
+        material = GetComponent<SpriteRenderer>().sharedMaterial; // project-wide reference to this material type; changes will show in all gameobjects using it
+        material.SetFloat("_EffectStrength", 0);
     }
 
     // Update is called once per frame
@@ -28,9 +36,16 @@ public class TowerController : MonoBehaviour
     {
         if (gc.debug)
         {
-            bulletInterval = 1/gc.gameSpeed;
+            bulletInterval = 1/gc.gameSpeed;            
         }
 
+        //rotate gun towards target
+        if (targetedEnemy)
+        {
+            float degreesPerSec = 1800f;
+            Quaternion atTarget = Quaternion.FromToRotation(Vector3.right, targetedEnemy.transform.position - transform.position);
+            gun.transform.rotation = Quaternion.RotateTowards(gun.transform.rotation, atTarget, degreesPerSec * Time.deltaTime);
+        }
     }
 
     void spawnAmmo(Vector2 target) {
@@ -86,6 +101,8 @@ public class TowerController : MonoBehaviour
             {
                 spawnAmmo(target.transform.position);
                 delay = bulletInterval;
+
+                targetedEnemy = target;
             }
 
             yield return new WaitForSeconds(delay);
@@ -99,6 +116,9 @@ public class TowerController : MonoBehaviour
         Debug.Log("HELO");
         if (collision.gameObject.GetComponent<EnemyController>())
         {
+            if (flashRoutine != null) StopCoroutine(flashRoutine);
+            flashRoutine = StartCoroutine(Flash(0.2f, 0.1f));
+
             Debug.Log("HELO2");
             health -= collision.gameObject.GetComponent<EnemyController>().damage;
 
@@ -106,5 +126,26 @@ public class TowerController : MonoBehaviour
                 Debug.Log("DEAD");
             }
         }
+    }
+
+    private IEnumerator Flash(float rampTime, float holdTime = 0)
+    {
+        if(holdTime > 0)
+        {
+            material.SetFloat("_EffectStrength", 1);
+            yield return new WaitForSeconds(holdTime);
+        }
+
+        float startTime = Time.time;
+
+        while(Time.time - startTime < rampTime)
+        {
+            float t = (Time.time - startTime) / rampTime;
+            float strength = Mathf.Lerp(1, 0, t);
+            material.SetFloat("_EffectStrength", strength);            
+            yield return null;
+        }
+
+        material.SetFloat("_EffectStrength", 0);
     }
 }

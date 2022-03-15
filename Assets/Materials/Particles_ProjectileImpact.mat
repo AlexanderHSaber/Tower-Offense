@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: HealthBarMaterial
-  m_Shader: {fileID: -6465566751694194690, guid: 79eeae75d0c0e4d9fbb63b150fc88792, type: 3}
+  m_Name: Particles_ProjectileImpact
+  m_Shader: {fileID: -6465566751694194690, guid: 76ecede2fb58c4660aca34e6aab88159, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -20,7 +20,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 7ce401decc2f44b9786c4516b9b90b35, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -36,17 +36,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - BOOLEAN_78DE57EB34814BFD888CCE21F273C9F0: 0
-    - BOOLEAN_83D50954AB9B4656A94ED76207E846D0: 0
-    - BOOLEAN_DFD9F20260C04771AC445BFF797A71E6: 0
-    - Vector1_5a48ad5fdc904e34a3b8ca633828e8f7: 1
-    - _ColorShift: 0
+    - BOOLEAN_764A7CB413C54C0C89261B11041EC7B9: 0
+    - Vector1_058899cf9928477f9c3d331a83cae353: 0.72
+    - Vector1_db196d819a7541a48f903f7d7c888caf: 0.753
+    - _Brightness: 1
     - _Opacity: 1
-    - _ReverseDirection: 0
-    - _TransparentDamage: 0
-    - _Value: 1
     m_Colors:
-    - _ColorDamage: {r: 1, g: 0.23494448, b: 0, a: 1}
-    - _ColorHealth: {r: 0.3755486, g: 1, b: 0, a: 0}
-    - _ColorHealthy: {r: 0, g: 1, b: 0.26026773, a: 0}
+    - _Tint: {r: 1.4980392, g: 1.2392157, b: 0.21176471, a: 0}
   m_BuildTextureStacks: []

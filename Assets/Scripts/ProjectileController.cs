@@ -11,6 +11,10 @@ public class ProjectileController : MonoBehaviour
     public int damage = 2;
     GameController gc;
 
+
+    private float eSpeed;   // effective speed after taking GC speed into account
+    public GameObject particles;
+        
     void Start()
     {
         gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
@@ -19,10 +23,8 @@ public class ProjectileController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gc.debug)
-        {
-            speed = gc.gameSpeed;
-        }
+
+        eSpeed = gc.debug ? speed * gc.gameSpeed : speed;
 
         if (target != null) {
             MoveTowardsTarget();
@@ -38,7 +40,7 @@ public class ProjectileController : MonoBehaviour
 
     private void MoveTowardsTarget()
     {
-        transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, target, eSpeed * Time.deltaTime);
     }
 
     public void SetTarget(Vector2 newTarget) {
@@ -49,6 +51,15 @@ public class ProjectileController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.GetComponent<EnemyController>()) {
+
+            if (particles)
+            {
+                GameObject hitParticles = Instantiate(particles);
+                hitParticles.transform.position = transform.position;
+
+            }
+                
+
             Destroy(gameObject);
         }
     }
