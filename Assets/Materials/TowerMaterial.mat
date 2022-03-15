@@ -41,7 +41,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - BOOLEAN_2AC7CA5CD7B54400936006B47E17B7F9: 0
-    - _EffectStrength: 0.7944641
+    - _EffectStrength: 0
     m_Colors:
     - Color_8a5367d26f6448d2a19734f10444fd59: {r: 1, g: 1, b: 1, a: 0}
     - Color_c9ff37605d73406180d4650fd715359f: {r: 1, g: 1, b: 1, a: 0}

@@ -16,11 +16,13 @@ public class GameController : MonoBehaviour
     public int currentWave;
     public int remainingSpawnCount;
 
-    private UIDocument uidoc;
+
     private VisualElement root;
     private Button nextWaveButton;
 
     public bool readyForNextWave = true;
+
+    public UIController uiController;
 
     // Start is called before the first frame update
     void Start()
@@ -30,15 +32,7 @@ public class GameController : MonoBehaviour
         remainingSpawnCount = getWaveQuantity(currentWave);
         StartCoroutine(SpawnEnemies());
 
-        
-
-        uidoc = GameObject.FindObjectOfType<UIDocument>();
-
-        root = uidoc.rootVisualElement;
-        nextWaveButton = root.Q<Button>("button-next");
-
-        nextWaveButton.clicked += () => readyForNextWave = true;
-        HideUI();
+        uiController.HideUI();
     }
 
     // Update is called once per frame
@@ -52,8 +46,8 @@ public class GameController : MonoBehaviour
     IEnumerator SpawnEnemies()
     {
         
-        Debug.Log(currentWave);
-        Debug.Log(remainingSpawnCount);
+        //Debug.Log(currentWave);
+        //Debug.Log(remainingSpawnCount);
 
         while (remainingSpawnCount > 0)
         {
@@ -85,61 +79,22 @@ public class GameController : MonoBehaviour
         Instantiate(enemyPrefab, position, Quaternion.identity);
     }
 
-    int getWaveQuantity(int n) {
+    int getWaveQuantity(int n)
+    {
         return n + 1;
-    }
-
-    void ShowUI()
-    {
-        var CardTexts = new Dictionary<int, string>() {
-            { 0, "Example 1" },
-            { 1, "Example 2" },
-            { 2, "Example 3" }
-        };
-
-        var possibleChoices = new int[] { 0, 1, 2 };
-        Shuffle(possibleChoices);
-
-
-        var cards = new List<Button>();
-        root.Query<Button>(className: "Card").ToList(cards);
-        for(int i = 0; i < cards.Count; i++)
-        {
-            string cardDescription;
-            CardTexts.TryGetValue(possibleChoices[i], out cardDescription);
-            cards[i].text = cardDescription;
-
-        }    
-
-        root.style.display = DisplayStyle.Flex;
-    }
-
-    void Shuffle(int[] list)
-    {
-        for (int i = 0; i < list.Length - 1; i++)
-        {
-            int rnd = Random.Range(i, list.Length);
-            int temp = list[rnd];
-            list[rnd] = list[i];
-            list[i] = temp;
-        }
-    }
-    void HideUI() 
-    {
-        root.style.display = DisplayStyle.None;
     }
 
     void PauseGame() 
     {
 
         DestroyAllProjectiles();
-        ShowUI();
+        uiController.ShowUI();
 
     }
 
     void UnpauseGame() 
     {
-        HideUI();
+        uiController.HideUI();
     }
 
     void DestroyAllProjectiles() 
@@ -150,5 +105,10 @@ public class GameController : MonoBehaviour
         {
             a.DestroyProjectile();
         }
+    }
+
+    public void setReadyForNextWave() 
+    {
+        readyForNextWave = true;
     }
 }
