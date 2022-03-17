@@ -28,7 +28,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
 
-        currentWave = 0;
+        // currentWave = 0;
         remainingSpawnCount = getWaveQuantity(currentWave);
         StartCoroutine(SpawnEnemies());
 
