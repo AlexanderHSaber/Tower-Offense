@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileController : MonoBehaviour
+public class ProjectileController : MonoBehaviour, IProjectileType
 {
 
     public float speed;
     public Vector2 target;
     public float stoppingDistance;
-    public int damage = 2;
+    public float damage = 2;
     GameController gc;
 
 
@@ -64,7 +64,7 @@ public class ProjectileController : MonoBehaviour
         }
     }
 
-    public int GetDamage()
+    public float GetDamage()
     {
         return damage;
     }

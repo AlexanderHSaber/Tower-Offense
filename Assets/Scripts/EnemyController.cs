@@ -58,9 +58,9 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        ProjectileController projectile = collision.gameObject.GetComponent<ProjectileController>();
+        IProjectileType projectile = collision.gameObject.GetComponent<IProjectileType>();
         
-        if (projectile)
+        if (projectile != null)
         {
             health -= projectile.GetDamage();
 
