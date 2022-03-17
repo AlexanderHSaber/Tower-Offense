@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: EnemyMaterial
-  m_Shader: {fileID: -6465566751694194690, guid: 923a9840b83ea4beaa1ce0ac58f72826, type: 3}
+  m_Name: PulseMat
+  m_Shader: {fileID: -6465566751694194690, guid: 657312370da5e43c3979783e305c50d8, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -19,12 +19,12 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - Texture2D_2ed8ab90bd6b416ea78baf713a73fa7d:
+    - Texture2D_455cf0e3a2fa42a1987fd059c7d1fc24:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -40,9 +40,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - BOOLEAN_2AC7CA5CD7B54400936006B47E17B7F9: 0
-    - _EffectStrength: 0
+    - Vector1_6a1e5784fb4f47bda918a8f263cf4761: 3
+    - Vector1_704ec80592a34d57ad5968cec2a0f115: 0.167
+    - Vector1_913b04a45547430bb1e9b44b07e6f20f: 0.022
+    - Vector1_c577d4cc36f84e53a7ba48bd51491865: 0
+    - Vector1_de2ea77017574bc49611c883b12ec7e1: 0
     m_Colors:
-    - Color_8a5367d26f6448d2a19734f10444fd59: {r: 1, g: 1, b: 1, a: 0}
-    - Color_c9ff37605d73406180d4650fd715359f: {r: 1.7176471, g: 0.91764706, b: 0.32156864, a: 0}
+    - Color_f368582e14a94a0ea473965b92f585ce: {r: 0.6098131, g: 2.1240082, b: 0.40033662, a: 0}
   m_BuildTextureStacks: []

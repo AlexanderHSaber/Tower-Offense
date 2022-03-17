@@ -9,7 +9,8 @@ public class TowerController : MonoBehaviour
     public GameController gc;
 
     public float radius;
-    public float bulletInterval;
+    public float firingRate = 2;
+    private float bulletInterval;
     public bool shooting = true;
 
     int health = 5;
@@ -39,6 +40,8 @@ public class TowerController : MonoBehaviour
             bulletInterval = 1/gc.gameSpeed;            
         }
 
+        bulletInterval = gc.debug ? 1 / (firingRate * gc.gameSpeed) : 1 / firingRate;
+
         //rotate gun towards target
         if (targetedEnemy)
         {
@@ -50,7 +53,10 @@ public class TowerController : MonoBehaviour
 
     void spawnAmmo(Vector2 target) {
         GameObject ammo = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-        ammo.GetComponent<ProjectileController>().SetTarget(target);
+
+        
+        ammo.GetComponent<IProjectileType>().SetTarget(target);
+
     }
 
     GameObject GetTarget()
