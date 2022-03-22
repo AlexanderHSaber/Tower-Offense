@@ -100,10 +100,10 @@ public class GameController : MonoBehaviour
     void DestroyAllProjectiles() 
     {
         // Stop the movement of gameobjects in the scene
-        ProjectileController[] projectileControllers = GameObject.FindObjectsOfType<ProjectileController>();
-        foreach (ProjectileController a in projectileControllers)
+        GameObject[] projectileObjects = GameObject.FindGameObjectsWithTag("Projectile");
+        foreach (GameObject projectile in projectileObjects)
         {
-            a.DestroyProjectile();
+            Destroy(projectile);
         }
     }
 
