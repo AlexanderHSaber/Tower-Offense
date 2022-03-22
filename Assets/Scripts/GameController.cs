@@ -8,7 +8,7 @@ public class GameController : MonoBehaviour
     public float spawnTime;
 
     public float radius = 15f;
-    public GameObject enemyPrefab;
+    public List<GameObject> enemyPrefabs;
 
     public float gameSpeed;
     public bool debug;
@@ -76,7 +76,8 @@ public class GameController : MonoBehaviour
 
     void SpawnEnemy(Vector2 position)
     {
-        Instantiate(enemyPrefab, position, Quaternion.identity);
+        int enemyType = Random.Range(0, enemyPrefabs.Count);
+        Instantiate(enemyPrefabs[enemyType], position, Quaternion.identity);
     }
 
     int getWaveQuantity(int n)
