@@ -62,28 +62,33 @@ public class EnemyController : MonoBehaviour
         
         if (projectile != null)
         {
-            health -= projectile.GetDamage();
-
-            //flash on hit
-            if (flashRoutine != null) StopCoroutine(flashRoutine);
-            flashRoutine = StartCoroutine(Flash(0.2f, 0.1f));
-
-            //update health bar on damage
-            if (healthBar)
-            {
-                healthBar.SetValue(health / maxHealth);
-            }            
-
-            if(health <= 0)
-            {
-                if (flashRoutine != null) StopCoroutine(flashRoutine);
-                Die();
-            }
+            TakeDamage(projectile.GetDamage());
         }
 
         TowerController tower = collision.gameObject.GetComponent<TowerController>();
         if (tower)
         {
+            Die();
+        }
+    }
+
+    public void TakeDamage(float damage) 
+    {
+        health -= damage;
+
+        //flash on hit
+        if (flashRoutine != null) StopCoroutine(flashRoutine);
+        flashRoutine = StartCoroutine(Flash(0.2f, 0.1f));
+
+        //update health bar on damage
+        if (healthBar)
+        {
+            healthBar.SetValue(health / maxHealth);
+        }
+
+        if (health <= 0)
+        {
+            if (flashRoutine != null) StopCoroutine(flashRoutine);
             Die();
         }
     }
