@@ -7,6 +7,7 @@ public class BasicGunController : MonoBehaviour
     public GameController gc;
 
     private GameObject targetedEnemy;
+    public GameObject crosshair;
     public GameObject projectilePrefab;
 
     private Material material;
@@ -31,6 +32,7 @@ public class BasicGunController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         //rotate gun towards target
         if (targetedEnemy)
         {
@@ -39,6 +41,10 @@ public class BasicGunController : MonoBehaviour
             gameObject.transform.rotation = Quaternion.RotateTowards(gameObject.transform.rotation, atTarget, degreesPerSec * Time.deltaTime);
         }
 
+        if (crosshair)
+        {
+            UpdateCrosshair();
+        }
 
         if (gc.debug)
         {
@@ -55,6 +61,21 @@ public class BasicGunController : MonoBehaviour
 
         ammo.GetComponent<IProjectileType>().SetTarget(target);
 
+    }
+
+    private void UpdateCrosshair()
+    {
+        if (targetedEnemy)
+        {
+            crosshair.SetActive(true);
+            crosshair.transform.rotation = Quaternion.identity;
+            crosshair.transform.position = targetedEnemy.transform.position;
+        }
+
+        else
+        {
+            crosshair.SetActive(false);
+        }    
     }
 
     GameObject GetTarget()
