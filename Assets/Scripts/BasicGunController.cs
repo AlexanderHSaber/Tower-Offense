@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicGunController : MonoBehaviour
+public class BasicGunController : UpgradeableGun
 {
     public GameController gc;
 
@@ -10,20 +10,29 @@ public class BasicGunController : MonoBehaviour
     public GameObject crosshair;
     public GameObject projectilePrefab;
 
-    private Material material;
-
     public float radius;
-    public float firingRate = 2;
-    private float bulletInterval;
+    public float baseFireRate = 2;
+    
     public bool shooting = true;
 
-    // Start is called before the first frame update
+    private int baseProjectileCount = 1;
+
+    //degrees to rotate each additional projectile by
+    private float perProjectileArc = 5;
+
+    //max degrees deviation from target angle (to either side)
+    private float maxDeviation = 2.5f;
+
+    //get effective stat values after upgrades
+    public float FireRate => baseFireRate + fireRateModifier;
+    public int ProjectileCount => baseProjectileCount + projectileCountModifier;
+
     void Start()
     {
-        gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+        InitializeUpgradeState();
+        projectileCountModifiers = new Dictionary<GunUpgrade, float>();
 
-        material = GetComponent<SpriteRenderer>().sharedMaterial; // project-wide reference to this material type; changes will show in all gameobjects using it
-        material.SetFloat("_EffectStrength", 0);
+        gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();        
 
         StartCoroutine("ShootAmmo");
 
@@ -46,20 +55,21 @@ public class BasicGunController : MonoBehaviour
             UpdateCrosshair();
         }
 
-        if (gc.debug)
-        {
-            bulletInterval = 1 / gc.gameSpeed;
-        }
 
-        bulletInterval = gc.debug ? 1 / (firingRate * gc.gameSpeed) : 1 / firingRate;
+
+        
     }
 
-    void spawnAmmo(Vector2 target)
+    GameObject spawnAmmo(Vector2 target)
     {
         GameObject ammo = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
 
 
         ammo.GetComponent<IProjectileType>().SetTarget(target);
+
+
+
+        return ammo;
 
     }
 
@@ -121,19 +131,36 @@ public class BasicGunController : MonoBehaviour
         {
             GameObject target = GetTarget();
 
-            float delay = 0.05f;
+            float bulletInterval = 1 / FireRate;
+            if (gc.debug) bulletInterval /= gc.gameSpeed;
 
             if (target)
             {
-                spawnAmmo(target.transform.position);
-                delay = bulletInterval;
+
+                float startAngle;
+                if (ProjectileCount == 1) startAngle = 0;
+
+                else startAngle = ProjectileCount % 2 == 0 ? (perProjectileArc * ProjectileCount / 2) - perProjectileArc/2 : (perProjectileArc * ProjectileCount) / 2 - perProjectileArc / 2;
+
+                for (int p = 0; p < ProjectileCount; p++)
+                {
+                    GameObject bullet = spawnAmmo(target.transform.position);
+
+                    float adjustment = startAngle - p * perProjectileArc + Random.Range(-maxDeviation, maxDeviation);
+
+                    bullet.GetComponent<ProjectileController>().AdjustHeading(adjustment);
+                }
+
+                
 
                 targetedEnemy = target;
             }
 
-            yield return new WaitForSeconds(delay);
+            yield return new WaitForSeconds(bulletInterval);
         }
 
 
-    }
+    }    
+
+    
 }

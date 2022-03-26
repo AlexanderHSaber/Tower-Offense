@@ -97,9 +97,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  target: {x: 0, y: 0}
-  stoppingDistance: 0.1
   damage: 1
+  range: 12
   particles: {fileID: 5822685247900791876, guid: fe6c2918728214653917bc147e47936b, type: 3}
 --- !u!58 &384266108
 CircleCollider2D:

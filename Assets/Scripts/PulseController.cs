@@ -17,6 +17,8 @@ public class PulseController : MonoBehaviour, IProjectileType
     [SerializeField] private float damage = 0.5f;
     [SerializeField] private GameObject hitParticles;   //particle effect for enemy hit
 
+
+
     // Start is called before the first frame update
     void Start()
     {        

@@ -219,11 +219,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 664a7f00dbfae0c45ae1c4f39c672f94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  validUpgradeTypes: 0000000001000000
+  upgrades: []
   gc: {fileID: 1467505845}
   crosshair: {fileID: 1261181090}
   projectilePrefab: {fileID: 5300114928117599302, guid: 280fb72aa7dbad8499f4a8aed71fd738, type: 3}
   radius: 1
-  firingRate: 1
+  baseFireRate: 2
   shooting: 1
 --- !u!1 &403323236
 GameObject:
@@ -268,10 +270,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c5964314006c2d49ae1b8dbe37ddee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  validUpgradeTypes: 0000000003000000
+  upgrades: []
   gc: {fileID: 1467505845}
   projectilePrefab: {fileID: 2362772115191133366, guid: 3d9a882b4ad8f4737ae9b9c592c45b5f, type: 3}
-  radius: 0
-  firingRate: 0.1
+  radius: 20
+  baseFireRate: 0.5
   shooting: 1
 --- !u!1 &519420028
 GameObject:
@@ -451,6 +455,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gc: {fileID: 1467505845}
+  upgradeManager: {fileID: 11400000, guid: b086991ce2e6a4c60925c74da5377e17, type: 2}
 --- !u!1 &1261181090 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7979169107132059585, guid: bde118319906e485e974dbcebbcac8ad, type: 3}
@@ -546,7 +551,7 @@ MonoBehaviour:
   - {fileID: 365892834320096498, guid: b3bec632d92656e4c8f384be128601ec, type: 3}
   gameSpeed: 2
   debug: 1
-  currentWave: 40
+  currentWave: 20
   remainingSpawnCount: 0
   readyForNextWave: 1
   uiController: {fileID: 942437810}
@@ -735,6 +740,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2bb936c6952c95459debb27649151cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  upgrades: []
   gc: {fileID: 0}
 --- !u!61 &1551296603
 BoxCollider2D:
@@ -805,13 +811,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f6f3983e8cb16419eddc828636c89b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  validUpgradeTypes: 0000000002000000
+  upgrades: []
   gc: {fileID: 1467505845}
   projectilePrefab: {fileID: 7036941822306519918, guid: 780692d8cb3c58e42b2eb2aa55553bdf, type: 3}
   chainSpeed: 0.05
   radius: 0
-  firingRate: 0.5
+  baseFireRate: 1
+  baseDamage: 0.5
   shooting: 1
-  damage: 0.5
 --- !u!1001 &7979169108087052131
 PrefabInstance:
   m_ObjectHideFlags: 0

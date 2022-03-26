@@ -35,13 +35,6 @@ public class GameController : MonoBehaviour
         uiController.HideUI();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (debug) {
-            spawnTime = 1 / gameSpeed;
-        }
-    }
 
     IEnumerator SpawnEnemies()
     {
@@ -51,7 +44,9 @@ public class GameController : MonoBehaviour
 
         while (remainingSpawnCount > 0)
         {
-            yield return new WaitForSeconds(spawnTime);
+            float spawnDelay = debug ? spawnTime / gameSpeed : spawnTime;
+
+            yield return new WaitForSeconds(spawnDelay);
             Vector2 spawnPoint = Random.insideUnitCircle.normalized * radius;
 
             SpawnEnemy(spawnPoint);

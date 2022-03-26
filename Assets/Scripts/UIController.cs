@@ -13,6 +13,12 @@ public class UIController : MonoBehaviour
     private VisualElement UpgradeScreen;
 
     public GameController gc;
+    public UpgradeManager upgradeManager;
+    
+    //save a list of cleanup actions to run after an upgrade is selected
+    //for unregistering callbacks before the next upgrade cycle
+    private List<System.Action> cleanupActions;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -27,13 +33,9 @@ public class UIController : MonoBehaviour
         InitializeWeaponTabs();
 
         nextWaveButton.clicked += () => gc.setReadyForNextWave();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
         
     }
+
     void Shuffle(int[] list)
     {
         for (int i = 0; i < list.Length - 1; i++)
@@ -52,29 +54,44 @@ public class UIController : MonoBehaviour
 
     public void ShowUI()
     {
-        var CardTexts = new Dictionary<int, string>() {
-            { 0, "Example 1" },
-            { 1, "Example 2" },
-            { 2, "Example 3" }
-        };
-
-        var possibleChoices = new int[] { 0, 1, 2 };
-        Shuffle(possibleChoices);
-
 
         var cards = new List<Button>();
         root.Query<Button>(className: "Card").ToList(cards);
+
+
+        var upgradeOptions = upgradeManager.GetRandomUpgrades(cards.Count);
+
+
+        cleanupActions = new List<System.Action>();
+
         for (int i = 0; i < cards.Count; i++)
         {
-            // Display the text on each card
-            string cardDescription;
-            CardTexts.TryGetValue(possibleChoices[i], out cardDescription);
-            cards[i].text = cardDescription;
-
-            // Set the on click method to switch to the new Upgrade Screen and TODO: DO THE UPGRADE
             Button card = cards[i];
-            cards[i].clicked += () => cardSelected(card);
 
+            if (upgradeOptions.Count < i + 1)
+            {
+                //no upgrade available for this card — hide it
+                Debug.Log($"no upgrade option available for card {i}; hiding card {i} instead");
+                card.style.display = DisplayStyle.None;
+            }
+            else
+            {
+                BaseUpgrade upgrade = upgradeOptions[i];
+                                                
+                card.text =  upgrade.GetName() + "\n\n" + upgrade.GetDescription();
+                card.style.display = DisplayStyle.Flex;
+
+                //register a callback to select this upgrade
+                EventCallback<ClickEvent> selectUpgrade = (evt) => MakeSelection(upgrade);
+                card.RegisterCallback(selectUpgrade);
+
+                //add a function that unregisters this callback
+                //to the list of cleanup actions that will get called when a selection is made
+                System.Action removeButtonCallback = () => card.UnregisterCallback(selectUpgrade);
+                cleanupActions.Add(removeButtonCallback);
+                
+            }
+            
         }
 
         toggleUIRoot();
@@ -104,19 +121,36 @@ public class UIController : MonoBehaviour
             ve.style.display = DisplayStyle.None;
     }
 
-
-
-    private void cardSelected(Button card) 
+    private void MakeSelection(BaseUpgrade selection)
     {
+        Debug.Log($"UIController.SelectUpgrade : clicked {selection.GetName()}!");
+
+        //tell the system which upgrade got picked
+        upgradeManager.AddToSelectionHistory(selection);
+
+        //and have it pass the upgrade along to whoever should get it next
+        upgradeManager.Dispatch(selection);
+        
+        CleanupCallbacks();
+
         switchScreen(UpgradeScreen, CardSelectionScreen);
     }
+
+    private void CleanupCallbacks()
+    {
+        foreach(var cleanupFunction in cleanupActions)
+        {
+            cleanupFunction();
+        }
+
+        cleanupActions.Clear();
+    }
+   
 
     private void InitializeWeaponTabs() 
     {
         var weaponIcons = new List<VisualElement>();
         root.Query<VisualElement>(className: "weaponIcon").ToList(weaponIcons);
-
-        //Debug.Log(weaponIcons.Count);
 
         var weaponUpgradeScreens = new List<VisualElement>();
         root.Query<VisualElement>(className: "weaponUpgradeScreen").ToList(weaponUpgradeScreens);
