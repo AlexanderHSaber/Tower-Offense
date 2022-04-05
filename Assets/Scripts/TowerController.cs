@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerController : MonoBehaviour
+
+public class TowerController : UpgradeableTower
 {
     public GameController gc;
 
@@ -11,10 +12,11 @@ public class TowerController : MonoBehaviour
     private Material material;    
     private Coroutine flashRoutine;
 
+
     // Start is called before the first frame update
     void Start()
     {
-    
+        InitializeUpgradeState();
         gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         
         material = GetComponent<SpriteRenderer>().sharedMaterial; // project-wide reference to this material type; changes will show in all gameobjects using it
@@ -64,4 +66,5 @@ public class TowerController : MonoBehaviour
 
         material.SetFloat("_EffectStrength", 0);
     }
+    
 }

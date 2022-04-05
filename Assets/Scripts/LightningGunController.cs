@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LightningGunController : MonoBehaviour
+public class LightningGunController : UpgradeableGun
 {
     public GameController gc;
 
@@ -12,32 +12,30 @@ public class LightningGunController : MonoBehaviour
     public float chainSpeed = 0.005f;
 
     public float radius;
-    public float firingRate = 1f;
-    private float bulletInterval;
+
+    [SerializeField]
+    private float baseFireRate = 1f;
+    [SerializeField]
+    private float baseDamage = 0.5f;
+
     public bool shooting = true;
 
-    public float damage = 0.5f;
+    
+
+    //getter properties for effective stat values
+    public float FireRate => baseFireRate + fireRateModifier;
+    public float Damage => baseDamage + damageModifier;
 
     // Start is called before the first frame update
     void Start()
     {
+        InitializeUpgradeState();
         gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
 
         StartCoroutine("ShootAmmo");
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-        if (gc.debug)
-        {
-            bulletInterval = 1 / gc.gameSpeed;
-        }
-
-        bulletInterval = gc.debug ? 1 / (firingRate * gc.gameSpeed) : 1 / firingRate;
-    }
 
     IEnumerator startChainLightning(GameObject target, Vector2 currentLocation)
     {
@@ -65,7 +63,7 @@ public class LightningGunController : MonoBehaviour
             EnemyController EC = target.gameObject.GetComponent<EnemyController>();
             if (EC) 
             {
-                EC.TakeDamage(damage);
+                EC.TakeDamage(Damage);
             }
 
             float randomizer = Random.Range(-0.001f, 0.001f);
@@ -110,6 +108,9 @@ public class LightningGunController : MonoBehaviour
 
         while (shooting)
         {
+            float bulletInterval = 1 / FireRate;
+            if (gc.debug) bulletInterval /= gc.gameSpeed;            
+
             target = GetRandomTargetInRange(50.0f, transform.position);
 
             if (target)

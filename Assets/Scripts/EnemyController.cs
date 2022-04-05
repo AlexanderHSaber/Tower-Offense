@@ -74,7 +74,13 @@ public class EnemyController : MonoBehaviour
 
     public void TakeDamage(float damage) 
     {
-        health -= damage;
+        health -= damage;        
+
+        if (health <= 0)
+        {            
+            Die();
+            return;
+        }
 
         //flash on hit
         if (flashRoutine != null) StopCoroutine(flashRoutine);
@@ -84,12 +90,6 @@ public class EnemyController : MonoBehaviour
         if (healthBar)
         {
             healthBar.SetValue(health / maxHealth);
-        }
-
-        if (health <= 0)
-        {
-            if (flashRoutine != null) StopCoroutine(flashRoutine);
-            Die();
         }
     }
 
@@ -120,7 +120,8 @@ public class EnemyController : MonoBehaviour
 
     private void Die()
     {
-        Destroy(material); //clean up material instance
+        if (flashRoutine != null) StopCoroutine(flashRoutine);
+        if(material) Destroy(material); //clean up material instance
         Destroy(gameObject);
     }
 }

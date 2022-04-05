@@ -11,10 +11,4 @@ public class LightningController : MonoBehaviour
         Destroy(gameObject, this.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length + delay);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
 }

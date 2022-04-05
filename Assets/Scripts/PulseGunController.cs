@@ -2,40 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PulseGunController : MonoBehaviour
+public class PulseGunController : UpgradeableGun
 {
     public GameController gc;
 
-    private GameObject targetedEnemy;
-    public GameObject projectilePrefab;
+    public GameObject projectilePrefab;    
 
-    private Material material;
-
-    public float radius;
-    public float firingRate = 2;
-    private float bulletInterval;
+    [SerializeField]
+    private float radius = 20;
+    [SerializeField]
+    private float baseFireRate = 2;
     public bool shooting = true;
+
+    public float FireRate => baseFireRate + fireRateModifier;
 
     // Start is called before the first frame update
     void Start()
     {
+        InitializeUpgradeState();
         gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
 
         StartCoroutine("ShootAmmo");
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-        if (gc.debug)
-        {
-            bulletInterval = 1 / gc.gameSpeed;
-        }
-
-        bulletInterval = gc.debug ? 1 / (firingRate * gc.gameSpeed) : 1 / firingRate;
-    }
 
     void spawnAmmo(Vector2 target)
     {
@@ -47,41 +37,19 @@ public class PulseGunController : MonoBehaviour
     }
 
     GameObject GetTarget()
-    {
-        radius = 20.0f;
+    {       
 
-        RaycastHit2D[] enemies = Physics2D.CircleCastAll(
+        RaycastHit2D enemy = Physics2D.CircleCast(
             transform.position,
             radius,
             Vector2.zero,
             0.0f,
             LayerMask.GetMask("Enemy"));
 
-        if (enemies.Length > 0)
-        {
-            return getClosestEnemy(enemies);
-        }
+        if (enemy) return enemy.collider.gameObject;
         return null;
     }
-
-    GameObject getClosestEnemy(RaycastHit2D[] enemies)
-    {
-        GameObject closestSoFar = null;
-
-        foreach (RaycastHit2D hit in enemies)
-        {
-            if (closestSoFar == null)
-            {
-                closestSoFar = hit.transform.gameObject;
-            }
-            else if (Vector2.SqrMagnitude(transform.position - hit.transform.position) < Vector2.SqrMagnitude(transform.position - closestSoFar.transform.position))
-            {
-                closestSoFar = hit.transform.gameObject;
-            }
-        }
-
-        return closestSoFar;
-    }
+   
 
     IEnumerator ShootAmmo()
     {
@@ -89,17 +57,15 @@ public class PulseGunController : MonoBehaviour
         {
             GameObject target = GetTarget();
 
-            float delay = 0.05f;
+            float bulletInterval = 1/FireRate;
+            if (gc.debug) bulletInterval /= gc.gameSpeed;
 
             if (target)
             {
                 spawnAmmo(target.transform.position);
-                delay = bulletInterval;
-
-                targetedEnemy = target;
             }
 
-            yield return new WaitForSeconds(delay);
+            yield return new WaitForSeconds(bulletInterval);
         }
 
 

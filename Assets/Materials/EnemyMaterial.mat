@@ -44,5 +44,5 @@ Material:
     - _EffectStrength: 0
     m_Colors:
     - Color_8a5367d26f6448d2a19734f10444fd59: {r: 1, g: 1, b: 1, a: 0}
-    - Color_c9ff37605d73406180d4650fd715359f: {r: 1.7176471, g: 0.91764706, b: 0.32156864, a: 0}
+    - Color_c9ff37605d73406180d4650fd715359f: {r: 1.9294118, g: 1.0509804, b: 0.17254902, a: 0}
   m_BuildTextureStacks: []
