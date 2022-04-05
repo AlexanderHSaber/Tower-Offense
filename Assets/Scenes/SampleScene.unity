@@ -275,7 +275,7 @@ MonoBehaviour:
   gc: {fileID: 1467505845}
   projectilePrefab: {fileID: 2362772115191133366, guid: 3d9a882b4ad8f4737ae9b9c592c45b5f, type: 3}
   radius: 20
-  baseFireRate: 0.5
+  baseFireRate: 0.15
   shooting: 1
 --- !u!1 &519420028
 GameObject:
@@ -818,7 +818,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 7036941822306519918, guid: 780692d8cb3c58e42b2eb2aa55553bdf, type: 3}
   chainSpeed: 0.05
   radius: 0
-  baseFireRate: 1
+  baseFireRate: 0.4
   baseDamage: 0.5
   shooting: 1
 --- !u!1 &2075291876
@@ -867,14 +867,14 @@ MonoBehaviour:
   validUpgradeTypes: 00000000
   upgrades: []
   gc: {fileID: 0}
-  projectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 8844705919639766578, guid: 82478227a51f00742a1d5332e2600a93, type: 3}
   chainSpeed: 0.005
   radius: 0
-  baseFireRate: 1
+  baseFireRate: 0.2
   baseDamage: 0.5
   shooting: 1
-  minRange: 10
-  maxRange: 15
+  minRange: 5
+  maxRange: 10
 --- !u!1001 &7979169108087052131
 PrefabInstance:
   m_ObjectHideFlags: 0

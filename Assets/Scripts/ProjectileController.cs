@@ -37,7 +37,7 @@ public class ProjectileController : MonoBehaviour, IProjectileType
         sqDistTraveled += Vector2.SqrMagnitude(transform.position) - Vector2.SqrMagnitude(lastPosition);
         lastPosition = transform.position;
 
-        Debug.Log(sqDistTraveled);
+        //Debug.log(sqDistTraveled);
         if(sqDistTraveled > range * range)
         {
             DestroyProjectile();

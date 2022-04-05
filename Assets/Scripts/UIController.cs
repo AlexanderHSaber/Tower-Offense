@@ -71,7 +71,7 @@ public class UIController : MonoBehaviour
             if (upgradeOptions.Count < i + 1)
             {
                 //no upgrade available for this card — hide it
-                Debug.Log($"no upgrade option available for card {i}; hiding card {i} instead");
+                //Debug.log($"no upgrade option available for card {i}; hiding card {i} instead");
                 card.style.display = DisplayStyle.None;
             }
             else
@@ -123,7 +123,7 @@ public class UIController : MonoBehaviour
 
     private void MakeSelection(BaseUpgrade selection)
     {
-        Debug.Log($"UIController.SelectUpgrade : clicked {selection.GetName()}!");
+        //Debug.log($"UIController.SelectUpgrade : clicked {selection.GetName()}!");
 
         //tell the system which upgrade got picked
         upgradeManager.AddToSelectionHistory(selection);
@@ -157,15 +157,15 @@ public class UIController : MonoBehaviour
 
         for (int i = 0; i < weaponIcons.Count; i++)
         {
-            //Debug.Log($"attached callback to weaponIcon{i}");
+            ////Debug.log($"attached callback to weaponIcon{i}");
             VisualElement weapon = weaponIcons[i];
 
             int curr = i; //read i outside of callback to get actual value
             weapon.RegisterCallback<ClickEvent>(evt =>
             {
-                //Debug.Log(i); //not sure why this is always 4 inside the callback?
+                ////Debug.log(i); //not sure why this is always 4 inside the callback?
 
-                //Debug.Log("Clicked weapon icon" + curr);
+                ////Debug.log("Clicked weapon icon" + curr);
                 VisualElement weaponUpgradeScreen = weaponUpgradeScreens[curr];
                 showWeaponUpgradeScreen(weaponUpgradeScreen, weaponUpgradeScreens);
             });

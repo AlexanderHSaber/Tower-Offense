@@ -31,17 +31,17 @@ public class TowerController : UpgradeableTower
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("HELO");
+        //Debug.log("HELO");
         if (collision.gameObject.GetComponent<EnemyController>())
         {
             if (flashRoutine != null) StopCoroutine(flashRoutine);
             flashRoutine = StartCoroutine(Flash(0.2f, 0.1f));
 
-            Debug.Log("HELO2");
+            //Debug.log("HELO2");
             health -= collision.gameObject.GetComponent<EnemyController>().damage;
 
             if (health <= 0) {
-                Debug.Log("DEAD");
+                //Debug.log("DEAD");
             }
         }
     }
