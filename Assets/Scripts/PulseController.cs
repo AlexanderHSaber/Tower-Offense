@@ -27,7 +27,7 @@ public class PulseController : MonoBehaviour, IProjectileType
         float screenHalfWidth = screenHalfHeight * Camera.main.aspect;
         maxRadius = Mathf.Sqrt(Mathf.Pow(screenHalfWidth, 2) + Mathf.Pow(screenHalfHeight, 2)) * size; //calculate max pulse radius
 
-        //Debug.Log($"max pulse radius: {maxRadius}");
+        ////Debug.log($"max pulse radius: {maxRadius}");
 
         StartCoroutine(Fire());
     }

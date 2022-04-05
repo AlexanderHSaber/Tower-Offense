@@ -26,12 +26,12 @@ public abstract class UpgradeableTower : MonoBehaviour, IUpgradeable
 
         if (towerUpgrade == null)
         {
-            Debug.Log($"invalid upgrade! {upgrade.GetName()} is not a TowerUpgrade");
+            //Debug.log($"invalid upgrade! {upgrade.GetName()} is not a TowerUpgrade");
             return;
         }
 
 
-        Debug.Log($"Yay! The tower received {towerUpgrade.GetName()}");
+        //Debug.log($"Yay! The tower received {towerUpgrade.GetName()}");
         ApplyUpgrade(towerUpgrade);
     }
 
@@ -44,6 +44,6 @@ public abstract class UpgradeableTower : MonoBehaviour, IUpgradeable
         if (towerUpgrade.healthModifier != 0) healthModifiers.Add(towerUpgrade, towerUpgrade.healthModifier);
         if (towerUpgrade.shieldModifier != 0) shieldModifiers.Add(towerUpgrade, towerUpgrade.shieldModifier);
 
-        Debug.Log($"The tower applied {towerUpgrade.GetName()}. It feels *much* better now.");
+        //Debug.log($"The tower applied {towerUpgrade.GetName()}. It feels *much* better now.");
     }
 }

@@ -39,8 +39,8 @@ public class GameController : MonoBehaviour
     IEnumerator SpawnEnemies()
     {
         
-        //Debug.Log(currentWave);
-        //Debug.Log(remainingSpawnCount);
+        ////Debug.log(currentWave);
+        ////Debug.log(remainingSpawnCount);
 
         while (remainingSpawnCount > 0)
         {

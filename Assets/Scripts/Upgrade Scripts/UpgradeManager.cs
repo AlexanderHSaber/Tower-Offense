@@ -17,9 +17,9 @@ public class UpgradeManager : ScriptableObject
     private void Initialize()
     {
         selectionHistory = new Dictionary<BaseUpgrade, int>();
-        Debug.Log("upgrade table awake");
-        Debug.Log($"total upgrade count: {upgrades.Count}");
-        Debug.Log($"selection history count: {selectionHistory.Count}");
+        //Debug.log("upgrade table awake");
+        //Debug.log($"total upgrade count: {upgrades.Count}");
+        //Debug.log($"selection history count: {selectionHistory.Count}");
     }
 
     //start with a blank dictionary

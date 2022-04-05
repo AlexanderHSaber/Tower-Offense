@@ -80,7 +80,7 @@ public abstract class UpgradeableGun : MonoBehaviour, IUpgradeable
         //not a GunUpgrade!
         if(gunUpgrade == null)
         {
-            Debug.Log("invalid upgrade type; must be of type GunUpgrade");
+            //Debug.log("invalid upgrade type; must be of type GunUpgrade");
             return;
         }
 
@@ -88,13 +88,13 @@ public abstract class UpgradeableGun : MonoBehaviour, IUpgradeable
         var typeMatches = validUpgradeTypes.Intersect(gunUpgrade.validGunTypes).ToList();
         if(typeMatches.Count == 0)
         {
-            Debug.Log($"invalid GunUpgrade for {gameObject.name}");
+            //Debug.log($"invalid GunUpgrade for {gameObject.name}");
             return;
         }
 
 
         //it's a match! apply it
-        Debug.Log($"Woohoo! {gameObject.name} received {gunUpgrade.GetName()}");
+        //Debug.log($"Woohoo! {gameObject.name} received {gunUpgrade.GetName()}");
         ApplyUpgrade(gunUpgrade);        
     }
 
@@ -124,12 +124,12 @@ public abstract class UpgradeableGun : MonoBehaviour, IUpgradeable
             specialEffects.Add(gunUpgrade, gunUpgrade.specialEffects);
             foreach (var effect in gunUpgrade.specialEffects)
             {
-                Debug.Log($"{gameObject.name} gained special effect {effect}");
+                //Debug.log($"{gameObject.name} gained special effect {effect}");
             }
         }
         
-        Debug.Log($"{gameObject.name} applied {upgrade.GetName()}!");
-        Debug.Log($"recalculating stat modifiers for {gameObject.name} after upgrade");
+        //Debug.log($"{gameObject.name} applied {upgrade.GetName()}!");
+        //Debug.log($"recalculating stat modifiers for {gameObject.name} after upgrade");
 
         //calculate the new stat totals and save them
         UpdateStatModifiers();

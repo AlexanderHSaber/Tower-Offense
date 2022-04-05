@@ -33,15 +33,17 @@ public class EnemyController : MonoBehaviour
         healthBar = GetComponentInChildren<HealthBarController>();
 
         material = GetComponent<SpriteRenderer>().material; // creates a new material instance for this renderer ; has to be destroyed manually before destroying gameobject
+        if (gc.debug)
+        {
+            speed = gc.gameSpeed;
+        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (gc.debug)
-        {
-            speed = gc.gameSpeed;
-        }
+        
         this.MoveTowardsTower();
     }
 
@@ -70,6 +72,24 @@ public class EnemyController : MonoBehaviour
         {
             Die();
         }
+
+        SlowZoneController slowZone = collision.gameObject.GetComponent<SlowZoneController>();
+        if (slowZone)
+        {
+            Debug.Log("enter slow zone");
+            speed = slowZone.getSlowMultiplier() * speed;
+        }
+
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        SlowZoneController slowZone = collision.gameObject.GetComponent<SlowZoneController>();
+        if (slowZone)
+        {
+            Debug.Log("exit slow zone");
+            speed = speed / slowZone.getSlowMultiplier();
+        }
     }
 
     public void TakeDamage(float damage) 
@@ -82,9 +102,13 @@ public class EnemyController : MonoBehaviour
             return;
         }
 
-        //flash on hit
-        if (flashRoutine != null) StopCoroutine(flashRoutine);
-        flashRoutine = StartCoroutine(Flash(0.2f, 0.1f));
+        ////flash on hit
+        //if (flashRoutine != null)
+        //{
+        //    StopCoroutine(flashRoutine);
+        //    flashRoutine = null;
+        //}
+        //flashRoutine = StartCoroutine(Flash(0.2f, 0.1f));
 
         //update health bar on damage
         if (healthBar)

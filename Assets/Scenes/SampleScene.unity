@@ -725,6 +725,7 @@ Transform:
   - {fileID: 82396759}
   - {fileID: 403323237}
   - {fileID: 1639998270}
+  - {fileID: 2075291877}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -820,6 +821,60 @@ MonoBehaviour:
   baseFireRate: 1
   baseDamage: 0.5
   shooting: 1
+--- !u!1 &2075291876
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2075291877}
+  - component: {fileID: 2075291878}
+  m_Layer: 0
+  m_Name: SlowGun
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2075291877
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075291876}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1551296601}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2075291878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075291876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07e11780dbf22334492fb481ff49441c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  validUpgradeTypes: 00000000
+  upgrades: []
+  gc: {fileID: 0}
+  projectilePrefab: {fileID: 0}
+  chainSpeed: 0.005
+  radius: 0
+  baseFireRate: 1
+  baseDamage: 0.5
+  shooting: 1
+  minRange: 10
+  maxRange: 15
 --- !u!1001 &7979169108087052131
 PrefabInstance:
   m_ObjectHideFlags: 0
