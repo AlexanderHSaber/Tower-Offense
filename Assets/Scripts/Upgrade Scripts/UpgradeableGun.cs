@@ -30,6 +30,7 @@ public abstract class UpgradeableGun : MonoBehaviour, IUpgradeable
     protected Dictionary<GunUpgrade, float> speedModifiers;       
     protected Dictionary<GunUpgrade, float> fireRateModifiers;    
     protected Dictionary<GunUpgrade, float> projectileCountModifiers;
+    protected Dictionary<GunUpgrade, float> chainCountModifiers;
 
     protected Dictionary<GunUpgrade, List<GunUpgrade.SpecialEffect>> specialEffects;
 
@@ -40,7 +41,7 @@ public abstract class UpgradeableGun : MonoBehaviour, IUpgradeable
     protected float damageModifier;
     protected float fireRateModifier;
     protected float speedModifier;
-
+    protected int chainCountModifier;
 
 
     /*
@@ -55,6 +56,7 @@ public abstract class UpgradeableGun : MonoBehaviour, IUpgradeable
         speedModifiers = new Dictionary<GunUpgrade, float>();
         fireRateModifiers = new Dictionary<GunUpgrade, float>();
         projectileCountModifiers = new Dictionary<GunUpgrade, float>();
+        chainCountModifiers = new Dictionary<GunUpgrade, float>();
 
         specialEffects = new Dictionary<GunUpgrade, List<GunUpgrade.SpecialEffect>>();     
 
@@ -117,9 +119,10 @@ public abstract class UpgradeableGun : MonoBehaviour, IUpgradeable
         if (gunUpgrade.speedModifier != 0) speedModifiers.Add(gunUpgrade, gunUpgrade.speedModifier);
         if (gunUpgrade.fireRateModifier != 0) fireRateModifiers.Add(gunUpgrade, gunUpgrade.fireRateModifier);
         if (gunUpgrade.projectileCountModifier != 0) projectileCountModifiers.Add(gunUpgrade, gunUpgrade.projectileCountModifier);
+        if (gunUpgrade.chainCountModifier != 0) chainCountModifiers.Add(gunUpgrade, gunUpgrade.chainCountModifier);
 
         //apply any other effects
-        if(gunUpgrade.specialEffects.Count > 0)
+        if (gunUpgrade.specialEffects.Count > 0)
         {
             specialEffects.Add(gunUpgrade, gunUpgrade.specialEffects);
             foreach (var effect in gunUpgrade.specialEffects)
@@ -146,6 +149,7 @@ public abstract class UpgradeableGun : MonoBehaviour, IUpgradeable
         speedModifier = CalculateModifier(speedModifiers);
         fireRateModifier = CalculateModifier(fireRateModifiers);
         projectileCountModifier = (int)CalculateModifier(projectileCountModifiers);
+        chainCountModifier = (int)CalculateModifier(chainCountModifiers);
     }
 
     /*

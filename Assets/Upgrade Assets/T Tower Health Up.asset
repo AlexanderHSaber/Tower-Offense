@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05450a5f456f64db7ac53b6eda5517e2, type: 3}
-  m_Name: T MeaninglessTowerUpgrade
+  m_Name: T Tower Health Up
   m_EditorClassIdentifier: 
-  name: Meaningless Tower Upgrade
-  description: It does nothing!
+  name: Healthy Tower Upgrade
+  description: Makes you healthy!\n+5 Health
   repeatable: 1
   requirements: []
-  healthModifier: 1
+  healthModifier: 5
   shieldModifier: 0
   specialEffects: 

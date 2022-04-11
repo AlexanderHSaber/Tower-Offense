@@ -17,6 +17,8 @@ public class LightningGunController : UpgradeableGun
     private float baseFireRate = 1f;
     [SerializeField]
     private float baseDamage = 0.5f;
+    [SerializeField]
+    private int baseChainCount = 3;
 
     public bool shooting = true;
 
@@ -25,6 +27,7 @@ public class LightningGunController : UpgradeableGun
     //getter properties for effective stat values
     public float FireRate => baseFireRate + fireRateModifier;
     public float Damage => baseDamage + damageModifier;
+    public int MaxChainCount => baseChainCount + chainCountModifier;
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +45,7 @@ public class LightningGunController : UpgradeableGun
 
         List<GameObject> enemiesAlreadyHit = new List<GameObject>();
 
-        int maxChain = 7;
+        int maxChain = MaxChainCount;
         while (maxChain >= 0) 
         {
             Vector2 dir = (Vector2)target.transform.position - currentLocation;
@@ -60,7 +63,7 @@ public class LightningGunController : UpgradeableGun
 
             lightningSR.size = new Vector2(4.0f, Vector2.Distance(currentLocation, (Vector2)target.transform.position));
 
-            EnemyController EC = target.gameObject.GetComponent<EnemyController>();
+            EnemyController EC = target.GetComponent<EnemyController>();
             if (EC) 
             {
                 EC.TakeDamage(Damage);

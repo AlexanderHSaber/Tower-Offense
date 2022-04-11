@@ -5,14 +5,16 @@ using UnityEngine;
 public class ProjectileController : MonoBehaviour, IProjectileType
 {
 
-    public float speed = 1;
+
     //public Vector2 target;
 
+    public float speed { get; set; }
+    public float damage { get; set; }
+    public float range { get; set; }
 
-    public float damage = 2;
     GameController gc;
 
-    public float range;
+    
 
     private Vector3 lastPosition;
 
@@ -100,4 +102,5 @@ public class ProjectileController : MonoBehaviour, IProjectileType
     {
         transform.Rotate(Vector3.forward * degrees);
     }
+
 }
