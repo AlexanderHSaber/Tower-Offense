@@ -11,12 +11,16 @@ public class BasicGunController : UpgradeableGun
     public GameObject projectilePrefab;
 
     public float radius;
+
     public float baseFireRate = 2;
+    public float baseDamage = 1;
+    private int baseProjectileCount = 1;
+    public float baseProjectileSpeed = 2;
     
+
     public bool shooting = true;
 
-    private int baseProjectileCount = 1;
-
+    
     //degrees to rotate each additional projectile by
     private float perProjectileArc = 5;
 
@@ -26,6 +30,10 @@ public class BasicGunController : UpgradeableGun
     //get effective stat values after upgrades
     public float FireRate => baseFireRate + fireRateModifier;
     public int ProjectileCount => baseProjectileCount + projectileCountModifier;
+    public float ProjectileDamage => baseDamage + damageModifier;
+    public float ProjectileSpeed => baseProjectileSpeed + speedModifier;
+    public float ProjectileRange => radius;
+
 
     void Start()
     {
@@ -144,11 +152,15 @@ public class BasicGunController : UpgradeableGun
 
                 for (int p = 0; p < ProjectileCount; p++)
                 {
-                    GameObject bullet = spawnAmmo(target.transform.position);
+                    var bullet = spawnAmmo(target.transform.position).GetComponent<ProjectileController>();
 
                     float adjustment = startAngle - p * perProjectileArc + Random.Range(-maxDeviation, maxDeviation);
 
-                    bullet.GetComponent<ProjectileController>().AdjustHeading(adjustment);
+                    bullet.AdjustHeading(adjustment);
+
+                    bullet.speed = ProjectileSpeed;
+                    bullet.damage = ProjectileDamage;
+                    bullet.range = ProjectileRange;
                 }
 
                 

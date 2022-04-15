@@ -102,13 +102,13 @@ public class EnemyController : MonoBehaviour
             return;
         }
 
-        ////flash on hit
-        //if (flashRoutine != null)
-        //{
-        //    StopCoroutine(flashRoutine);
-        //    flashRoutine = null;
-        //}
-        //flashRoutine = StartCoroutine(Flash(0.2f, 0.1f));
+        //flash on hit
+        if (flashRoutine != null)
+        {
+            StopCoroutine(flashRoutine);
+            flashRoutine = null;
+        }
+        flashRoutine = StartCoroutine(Flash(0.2f, 0.1f));
 
         //update health bar on damage
         if (healthBar)
@@ -120,8 +120,11 @@ public class EnemyController : MonoBehaviour
     //lerp from alternate color to normal sprite appearance over rampTime
     private IEnumerator Flash(float rampTime, float holdTime = 0)
     {
+        
         //hold effect at full strength before lerp
         if(holdTime > 0) {
+            if (!material) yield break;
+
             material.SetFloat("_EffectStrength", 1);
             yield return new WaitForSeconds(holdTime);
         }
@@ -130,7 +133,9 @@ public class EnemyController : MonoBehaviour
 
         //lerp back to normal appearance
         while(Time.time - startTime < rampTime)
-        {           
+        {
+
+            if (!material) yield break;
             float t = (Time.time - startTime) / rampTime;
             float strength = Mathf.Lerp(1, 0, t);            
             
@@ -139,13 +144,13 @@ public class EnemyController : MonoBehaviour
             yield return null;
         }
 
-        material.SetFloat("_EffectStrength", 0);
+        if(material) material.SetFloat("_EffectStrength", 0);
     }
 
     private void Die()
     {
         if (flashRoutine != null) StopCoroutine(flashRoutine);
-        if(material) Destroy(material); //clean up material instance
+        Destroy(material); //clean up material instance
         Destroy(gameObject);
     }
 }

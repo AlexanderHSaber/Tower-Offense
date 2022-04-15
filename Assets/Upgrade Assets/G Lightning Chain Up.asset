@@ -10,11 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0113b09f6adec4f8ab9b07c0c71a2c36, type: 3}
-  m_Name: G LightningUpgrade
+  m_Name: G Lightning Chain Up
   m_EditorClassIdentifier: 
   name: Lightning Upgrade
-  description: An upgrade specific to the lightning gun that does cool stuff and
-    weird stuff, and also nothing.
+  description: +3 to maximum  chain. For lightning gun.
   repeatable: 1
   requirements: []
   validGunTypes: 02000000
@@ -22,4 +21,5 @@ MonoBehaviour:
   fireRateModifier: 0
   speedModifier: 0
   projectileCountModifier: 0
+  chainCountModifier: 3
   specialEffects: 0000000001000000

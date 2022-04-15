@@ -18,4 +18,9 @@ public class HealthBarController : MonoBehaviour
     {
         hbm.SetFloat(materialValueParam, value);
     }
+
+    private void OnDestroy()
+    {
+        if(hbm) Destroy(hbm);
+    }
 }

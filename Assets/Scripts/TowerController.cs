@@ -7,11 +7,13 @@ public class TowerController : UpgradeableTower
 {
     public GameController gc;
 
-    int health = 5;
+    
 
     private Material material;    
     private Coroutine flashRoutine;
 
+
+    private HealthBarController healthBar;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +23,8 @@ public class TowerController : UpgradeableTower
         
         material = GetComponent<SpriteRenderer>().sharedMaterial; // project-wide reference to this material type; changes will show in all gameobjects using it
         material.SetFloat("_EffectStrength", 0);
+        
+        healthBar = GetComponentInChildren<HealthBarController>();
     }
 
     // Update is called once per frame
@@ -31,18 +35,16 @@ public class TowerController : UpgradeableTower
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        var enemy = collision.gameObject.GetComponent<EnemyController>();
         //Debug.log("HELO");
-        if (collision.gameObject.GetComponent<EnemyController>())
+        if (enemy)
         {
             if (flashRoutine != null) StopCoroutine(flashRoutine);
             flashRoutine = StartCoroutine(Flash(0.2f, 0.1f));
 
             //Debug.log("HELO2");
-            health -= collision.gameObject.GetComponent<EnemyController>().damage;
-
-            if (health <= 0) {
-                //Debug.log("DEAD");
-            }
+            TakeDamage(enemy.damage);
+            
         }
     }
 
@@ -66,5 +68,26 @@ public class TowerController : UpgradeableTower
 
         material.SetFloat("_EffectStrength", 0);
     }
-    
+
+    public void TakeDamage(int amount)
+    {
+        health -= amount;
+        Debug.Log($"took {amount} damage ; remaining {health} / {maxHealth}");
+        UpdateHealthBar();
+        if (health <= 0)
+        {
+            //Debug.log("DEAD");
+        }
+    }
+
+    private void UpdateHealthBar()
+    {
+        if (healthBar) healthBar.SetValue(Mathf.Max(0, health / maxHealth));
+    }
+
+    public override void ApplyUpgrade(BaseUpgrade upgrade)
+    {
+        base.ApplyUpgrade(upgrade);
+        UpdateHealthBar();
+    }
 }

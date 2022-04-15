@@ -18,7 +18,8 @@ MonoBehaviour:
   requirements: []
   validGunTypes: 00000000
   damageModifier: 0
-  fireRateModifier: 1
+  fireRateModifier: 0.25
   speedModifier: 0
   projectileCountModifier: 0
+  chainCountModifier: 0
   specialEffects: 

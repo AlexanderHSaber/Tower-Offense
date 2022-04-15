@@ -21,6 +21,7 @@ public class GunUpgrade : BaseUpgrade
     public float fireRateModifier;
     public float speedModifier;
     public float projectileCountModifier;
+    public float chainCountModifier;
     /*
      * probably more interesting ones could go here too
      * 
