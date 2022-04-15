@@ -49,9 +49,9 @@ public class PulseGunController : UpgradeableGun
         if (enemy) return enemy.collider.gameObject;
         return null;
     }
-   
 
-    IEnumerator ShootAmmo()
+
+    protected override IEnumerator ShootAmmo()
     {
         while (shooting)
         {

@@ -104,7 +104,7 @@ public class LightningGunController : UpgradeableGun
         return null;
     }
 
-    IEnumerator ShootAmmo()
+    protected override IEnumerator ShootAmmo()
     {
         // Spawn lightning between tower and closest enemy unit.
         GameObject target = null;

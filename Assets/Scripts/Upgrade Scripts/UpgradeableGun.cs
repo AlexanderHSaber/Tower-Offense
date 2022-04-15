@@ -43,6 +43,8 @@ public abstract class UpgradeableGun : MonoBehaviour, IUpgradeable
     protected float speedModifier;
     protected int chainCountModifier;
 
+    protected abstract IEnumerator ShootAmmo();
+
 
     /*
     * Initialize all stat/effect dicts and empty the upgrade list before the game starts
@@ -160,4 +162,15 @@ public abstract class UpgradeableGun : MonoBehaviour, IUpgradeable
      *      update stats and effects
      *  }
      */
+
+    public void StartShootingCoroutine()
+    {
+        StartCoroutine(ShootAmmo());
+    }
+
+    public void StopShootingCoroutine()
+    {
+        StopAllCoroutines();
+    }
+
 }

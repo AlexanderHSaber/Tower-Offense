@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &82396758
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -224,7 +224,7 @@ MonoBehaviour:
   gc: {fileID: 1467505845}
   crosshair: {fileID: 1261181090}
   projectilePrefab: {fileID: 5300114928117599302, guid: 280fb72aa7dbad8499f4a8aed71fd738, type: 3}
-  radius: 1
+  radius: 20
   baseFireRate: 2
   baseDamage: 1
   baseProjectileSpeed: 2
@@ -883,7 +883,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1639998270
 Transform:
   m_ObjectHideFlags: 0
@@ -936,7 +936,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2075291877
 Transform:
   m_ObjectHideFlags: 0

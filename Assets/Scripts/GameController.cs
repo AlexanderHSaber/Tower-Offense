@@ -84,6 +84,7 @@ public class GameController : MonoBehaviour
     {
 
         DestroyAllProjectiles();
+        StopAllGunControllers();
         uiController.ShowUI();
 
     }
@@ -91,6 +92,7 @@ public class GameController : MonoBehaviour
     void UnpauseGame() 
     {
         uiController.HideUI();
+        StartAllGunControllers();
     }
 
     void DestroyAllProjectiles() 
@@ -106,5 +108,23 @@ public class GameController : MonoBehaviour
     public void setReadyForNextWave() 
     {
         readyForNextWave = true;
+    }
+
+    private void StopAllGunControllers() 
+    {
+        UpgradeableGun[] guns = GameObject.FindObjectsOfType<UpgradeableGun>();
+        foreach (UpgradeableGun gun in guns) 
+        {
+            gun.StopShootingCoroutine();
+        }
+    }
+
+    private void StartAllGunControllers()
+    {
+        UpgradeableGun[] guns = GameObject.FindObjectsOfType<UpgradeableGun>();
+        foreach (UpgradeableGun gun in guns)
+        {
+            gun.StartShootingCoroutine();
+        }
     }
 }

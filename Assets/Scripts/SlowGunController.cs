@@ -7,7 +7,6 @@ public class SlowGunController : UpgradeableGun
 
     public GameController gc;
 
-    private GameObject targetedEnemy;
     public GameObject projectilePrefab;
 
     public float chainSpeed = 0.005f;
@@ -36,6 +35,7 @@ public class SlowGunController : UpgradeableGun
         InitializeUpgradeState();
         gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
 
+        StartCoroutine("CheckEnemies");
         StartCoroutine("ShootAmmo");
 
     }
@@ -46,11 +46,17 @@ public class SlowGunController : UpgradeableGun
         
     }
 
+    private bool EnemiesPresent() 
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        return enemies.Length > 0;
+    }
 
-    IEnumerator ShootAmmo()
+
+    protected override IEnumerator ShootAmmo()
     {
         // Spawn lightning between tower and closest enemy unit.
-        while (shooting)
+        while (true)
         {
             float bulletInterval = 1 / FireRate;
             if (gc.debug) bulletInterval /= gc.gameSpeed;
@@ -60,12 +66,8 @@ public class SlowGunController : UpgradeableGun
             Vector2 direction = Random.insideUnitCircle;
             Quaternion rotation = Quaternion.FromToRotation(Vector2.right, direction);
 
-
-
-
             GameObject slowProjectile = Instantiate(projectilePrefab, transform.position, rotation);
             slowProjectile.GetComponent<SlowInitialProjectileController>().setRange(distance);
-
 
             yield return new WaitForSeconds(bulletInterval);
         }

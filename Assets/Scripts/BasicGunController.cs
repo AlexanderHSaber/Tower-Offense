@@ -50,13 +50,10 @@ public class BasicGunController : UpgradeableGun
     void Update()
     {
         
-        //rotate gun towards target
-        if (targetedEnemy)
-        {
-            float degreesPerSec = 1800f;
-            Quaternion atTarget = Quaternion.FromToRotation(Vector3.right, targetedEnemy.transform.position - transform.position);
-            gameObject.transform.rotation = Quaternion.RotateTowards(gameObject.transform.rotation, atTarget, degreesPerSec * Time.deltaTime);
-        }
+        //rotate gun towards mouse
+        float degreesPerSec = 1800f;
+        Quaternion atTarget = Quaternion.FromToRotation(Vector3.right, getMousePosition() - transform.position);
+        gameObject.transform.rotation = Quaternion.RotateTowards(gameObject.transform.rotation, atTarget, degreesPerSec * Time.deltaTime);
 
         if (crosshair)
         {
@@ -83,66 +80,68 @@ public class BasicGunController : UpgradeableGun
 
     private void UpdateCrosshair()
     {
-        if (targetedEnemy)
-        {
-            crosshair.SetActive(true);
-            crosshair.transform.rotation = Quaternion.identity;
-            crosshair.transform.position = targetedEnemy.transform.position;
-        }
-
-        else
-        {
-            crosshair.SetActive(false);
-        }    
+        crosshair.SetActive(true);
+        crosshair.transform.rotation = Quaternion.identity;
+        crosshair.transform.position = getMousePosition();
     }
 
-    GameObject GetTarget()
+    Vector3 getMousePosition()
     {
-        radius = 20.0f;
-
-        RaycastHit2D[] enemies = Physics2D.CircleCastAll(
-            transform.position,
-            radius,
-            Vector2.zero,
-            0.0f,
-            LayerMask.GetMask("Enemy"));
-
-        if (enemies.Length > 0)
-        {
-            return getClosestEnemy(enemies);
-        }
-        return null;
+        Vector3 mousePos = new Vector3(
+            Camera.main.ScreenToWorldPoint(Input.mousePosition).x,
+            Camera.main.ScreenToWorldPoint(Input.mousePosition).y,
+            0);
+        return mousePos;
     }
 
-    GameObject getClosestEnemy(RaycastHit2D[] enemies)
-    {
-        GameObject closestSoFar = null;
+    //Vector2 GetTarget()
+    //{
+    //    return getMousePosition();
+    //    //radius = 20.0f;
 
-        foreach (RaycastHit2D hit in enemies)
-        {
-            if (closestSoFar == null)
-            {
-                closestSoFar = hit.transform.gameObject;
-            }
-            else if (Vector2.SqrMagnitude(transform.position - hit.transform.position) < Vector2.SqrMagnitude(transform.position - closestSoFar.transform.position))
-            {
-                closestSoFar = hit.transform.gameObject;
-            }
-        }
+    //    //RaycastHit2D[] enemies = Physics2D.CircleCastAll(
+    //    //    transform.position,
+    //    //    radius,
+    //    //    Vector2.zero,
+    //    //    0.0f,
+    //    //    LayerMask.GetMask("Enemy"));
 
-        return closestSoFar;
-    }
+    //    //if (enemies.Length > 0)
+    //    //{
+    //    //    return getClosestEnemy(enemies);
+    //    //}
+    //    //return null;
+    //}
 
-    IEnumerator ShootAmmo()
+    //GameObject getClosestEnemy(RaycastHit2D[] enemies)
+    //{
+    //    GameObject closestSoFar = null;
+
+    //    foreach (RaycastHit2D hit in enemies)
+    //    {
+    //        if (closestSoFar == null)
+    //        {
+    //            closestSoFar = hit.transform.gameObject;
+    //        }
+    //        else if (Vector2.SqrMagnitude(transform.position - hit.transform.position) < Vector2.SqrMagnitude(transform.position - closestSoFar.transform.position))
+    //        {
+    //            closestSoFar = hit.transform.gameObject;
+    //        }
+    //    }
+
+    //    return closestSoFar;
+    //}
+
+    protected override IEnumerator ShootAmmo()
     {
         while (shooting)
         {
-            GameObject target = GetTarget();
+            Vector2 target = getMousePosition();
 
             float bulletInterval = 1 / FireRate;
             if (gc.debug) bulletInterval /= gc.gameSpeed;
 
-            if (target)
+            if (target != null)
             {
 
                 float startAngle;
@@ -152,7 +151,7 @@ public class BasicGunController : UpgradeableGun
 
                 for (int p = 0; p < ProjectileCount; p++)
                 {
-                    var bullet = spawnAmmo(target.transform.position).GetComponent<ProjectileController>();
+                    var bullet = spawnAmmo(target).GetComponent<ProjectileController>();
 
                     float adjustment = startAngle - p * perProjectileArc + Random.Range(-maxDeviation, maxDeviation);
 
@@ -163,9 +162,6 @@ public class BasicGunController : UpgradeableGun
                     bullet.range = ProjectileRange;
                 }
 
-                
-
-                targetedEnemy = target;
             }
 
             yield return new WaitForSeconds(bulletInterval);
